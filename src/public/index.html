@@ -1,12 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <p>Este es el server papu</p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentacion provisional</title>
+  </head>
+  <body>
+    <h1>RUTAS:</h1>
+
+    <h4>Autenticacion y registro</h4>
+    <p>POST /api/auth/login</p>
+    <br />
+    <p>POST /api/auth/complete-auth/:userType</p>
+    <br />
+    <p>POST /api/auth/create-user</p>
+    <br />
+    <p>POST /api/auth/create-student</p>
+    <br />
+
+    <h4>Registro de Asistencias</h4>
+    <p>POST /api/assistence/new</p>
+    <br />
+    <p>POST /api/assistence/update/:userid/:subjectid/:date</p>
+    <br />
+    <p>GET /api/assistence/get/:userid</p>
+    <br />
+
+    <h4>Todas las demas rutas siguen esta estructura:</h4>
+    <p>POST /ruta</p>
+    <br />
+    <p>GET /ruta/list</p>
+    <br />
+    <p>GET /ruta/:id</p>
+    <br />
+    <p>POST /ruta/update/:id</p>
+    <br />
+    <p>DELETE /ruta/update/:id</p>
+    <br />
+
+    <h6>Estas otras rutas son:</h6>
+
+    <ul>
+      <li>center</li>
+      <li>user</li>
+      <li>faculty</li>
+      <li>carreer</li>
+      <li>course</li>
+      <li>semester</li>
+      <li>deparment</li>
+      <li>subject</li>
+      <li>enrollment</li>
+    </ul>
+
+    <h6>
+      Las entidades deben crearse en el mismo orden de la lista pues cada una
+      depende de la anterior
+    </h6>
+  </body>
 </html>
