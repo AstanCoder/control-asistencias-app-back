@@ -1,4 +1,4 @@
-type Role = "admin" | "student" | "proffesor";
+export type Role = "admin" | "student" | "proffesor";
 
 export interface RegisterPayload {
   name: string;

@@ -1,4 +1,6 @@
+import { Role } from "./auth";
+
 export interface Rol {
     id: number;
-    value: string
+    value: Role
 }
