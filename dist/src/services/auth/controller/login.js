@@ -20,14 +20,15 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const payload = req.body;
         const { email } = payload;
         const userdata = yield (0, auth_querys_1.searchUserByEmailQuery)(email);
-        const { password } = userdata;
+        const user = userdata;
+        const { password } = user[0];
         const matches = bcrypt_1.default.compareSync(payload.password, password);
         if (!matches) {
             return res.status(401).json({
                 message: "Contraseña incorrecta",
             });
         }
-        const token = (0, jwt_1.createAuthToken)({ id: userdata.id, email: payload.email });
+        const token = (0, jwt_1.createAuthToken)({ id: user[0].id, email: payload.email });
         res.status(200).json({ token });
     }
     catch (error) {

@@ -11,9 +11,11 @@ const login = async (req: Request, res: Response) => {
 
     const { email } = payload;
 
-    const userdata = <RowDataPacket>await searchUserByEmailQuery(email);
+    const userdata = await searchUserByEmailQuery(email);
 
-    const { password } = userdata;
+
+    const user: any = userdata
+    const { password } = user[0];
 
     const matches = bcrypt.compareSync(payload.password, password);
 
@@ -23,7 +25,7 @@ const login = async (req: Request, res: Response) => {
       });
     }
 
-    const token = createAuthToken({ id: userdata.id, email: payload.email });
+    const token = createAuthToken({ id: user[0].id, email: payload.email });
 
     res.status(200).json({ token });
   } catch (error) {
