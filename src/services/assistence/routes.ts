@@ -10,3 +10,5 @@ assistenceRouter
   .post("/new", verifyToken, createAssistence)
   .post("/update/:userid/:subjectid/:date", verifyToken, updateAssitence)
   .get("/get/:userid", verifyToken, getAssitences);
+
+export default assistenceRouter;

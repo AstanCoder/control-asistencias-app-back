@@ -8,7 +8,12 @@ dotenv.config();
 
 const app: Express = express();
 
-app.use(express.static(path.join(__dirname, "./public")));
+app.use("/api", router);
+app.use("/", express.static(path.join(__dirname, "./public")));
+
+app.get("/*", (_req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 app.use(json());
 
@@ -18,8 +23,6 @@ app.use(
     origin: "*",
   })
 );
-
-app.use("/", router)
 
 const PORT = process.env.PORT || 8080;
 
