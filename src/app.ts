@@ -3,12 +3,18 @@ import dotenv from "dotenv";
 import path from "path";
 import cors from "cors";
 import router from "./routes/routes";
+import { testProxy } from "./middlewares/proxyMiddleware";
+
+const testRouter = express.Router()
 
 dotenv.config();
 
 const app: Express = express();
 
 app.use(express.json())
+
+testRouter.use("/movies", testProxy)
+app.use(testRouter)
 
 app.use("/api", router);
 app.use("/", express.static(path.join(__dirname, "./public")));
