@@ -55,6 +55,11 @@ const getUserDataQuery = (id) => __awaiter(void 0, void 0, void 0, function* () 
     }
     return Object.assign(Object.assign({ role: role[0].value }, res[0]), userdata);
 });
+const getStudentsByProfessorQuery = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const [enrollment] = (yield database_1.pool.query("CALL get_enrollment_by_professor(?)", [id]));
+    const [students] = (yield database_1.pool.query("SELECT 'estudiante'.'esRepitente', 'usuario'.'name' AS 'nombre', 'usuario'.'ci' AS 'ci' FROM estudiante JOIN 'usuario' ON 'estudiante'.'usuario_id' = 'usuario'.'id' WHERE 'estudiante'.'matricula_id' = ?", [enrollment[0].id]));
+    return students;
+});
 const UserQuerys = {
     createUserQuery,
     updateUserQuery,
@@ -62,5 +67,6 @@ const UserQuerys = {
     deleteUserQuery,
     getUserQuery: exports.getUserQuery,
     getUserDataQuery,
+    getStudentsByProfessorQuery
 };
 exports.default = UserQuerys;

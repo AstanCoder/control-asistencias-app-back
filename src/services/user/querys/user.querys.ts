@@ -70,7 +70,11 @@ const getUserDataQuery = async (id: number) => {
         professor[0].departamento_id,
       ])
     );
-    userdata = { ...professor[0], tipo_profesor: professor_type[0].value, departamento: department[0].nombre };
+    userdata = {
+      ...professor[0],
+      tipo_profesor: professor_type[0].value,
+      departamento: department[0].nombre,
+    };
   }
 
   return {
@@ -80,6 +84,21 @@ const getUserDataQuery = async (id: number) => {
   };
 };
 
+ const getStudentsByProfessorQuery = async (id: number) => {
+  const [enrollment]: RowDataPacket[] = <RowDataPacket[]>(
+    await pool.query("CALL get_enrollment_by_professor(?)", [id])
+  );
+
+  const [students]: RowDataPacket[] = <RowDataPacket[]>(
+    await pool.query(
+      "SELECT 'estudiante'.'esRepitente', 'usuario'.'name' AS 'nombre', 'usuario'.'ci' AS 'ci' FROM estudiante JOIN 'usuario' ON 'estudiante'.'usuario_id' = 'usuario'.'id' WHERE 'estudiante'.'matricula_id' = ?",
+      [enrollment[0].id]
+    )
+  );
+
+  return students;
+};
+
 const UserQuerys = {
   createUserQuery,
   updateUserQuery,
@@ -87,6 +106,7 @@ const UserQuerys = {
   deleteUserQuery,
   getUserQuery,
   getUserDataQuery,
+  getStudentsByProfessorQuery
 };
 
 export default UserQuerys;

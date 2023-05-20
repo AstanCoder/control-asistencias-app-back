@@ -59,10 +59,23 @@ export const deleteUser = async (req: Request, res: Response) => {
 
 export const getUserData = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.user_id;
     const result = await UserQuerys.getUserDataQuery(Number(id));
 
     return res.status(200).json({ result });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
+};
+
+export const getStudentsByProfessor = async (req: Request, res: Response) => {
+  try {
+    const id = req.user_id;
+
+    const result = UserQuerys.getStudentsByProfessorQuery(Number(id));
+
+    return res.status(200).send(result);
   } catch (error) {
     console.log(error);
     return res.status(500).json(error);

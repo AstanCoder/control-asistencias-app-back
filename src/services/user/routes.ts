@@ -3,6 +3,7 @@ import {
   ListUser,
   createUser,
   deleteUser,
+  getStudentsByProfessor,
   getUser,
   getUserData,
   updateUser,
@@ -18,6 +19,7 @@ userRouter
   .get("/user/get/:id", verifyToken, getUser)
   .post("/user/update/:id", verifyToken, updateUser)
   .delete("/user/delete/:id", verifyToken, deleteUser)
-  .get("/user/profile/:id", verifyToken, getUserData);
+  .get("/user/profile", verifyToken, getUserData)
+  .get("/user/students", verifyToken, getStudentsByProfessor);
 
 export default userRouter;
