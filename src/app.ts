@@ -13,8 +13,7 @@ const app: Express = express();
 
 app.use(express.json())
 
-testRouter.use("/movies", testProxy)
-app.use(testRouter)
+
 
 app.use("/api", router);
 app.use("/", express.static(path.join(__dirname, "./public")));

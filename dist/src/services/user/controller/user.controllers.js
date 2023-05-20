@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.getUser = exports.updateUser = exports.ListUser = exports.createUser = void 0;
+exports.getUserData = exports.deleteUser = exports.getUser = exports.updateUser = exports.ListUser = exports.createUser = void 0;
 const user_querys_1 = __importDefault(require("../querys/user.querys"));
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -74,3 +74,15 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.deleteUser = deleteUser;
+const getUserData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const result = yield user_querys_1.default.getUserDataQuery(Number(id));
+        return res.status(200).json({ result });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json(error);
+    }
+});
+exports.getUserData = getUserData;

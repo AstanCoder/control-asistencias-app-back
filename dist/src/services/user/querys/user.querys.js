@@ -35,11 +35,32 @@ const deleteUserQuery = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const [result] = yield database_1.pool.query("DELETE FROM usuario WHERE id = ?", [id]);
     return result;
 });
+const getUserDataQuery = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    let userdata = {};
+    const [res] = (yield database_1.pool.query("SELECT id, name, surname, ci, rol_id FROM usuario WHERE id = ?", [id]));
+    const [role] = (yield database_1.pool.query("SELECT value FROM rol WHERE id = ?", [res[0].rol_id]));
+    if (role[0].value === "student") {
+        const [studentdata] = (yield database_1.pool.query("SELECT esRepitente FROM estudiante WHERE usuario_id = ?", [id]));
+        userdata = Object.assign({}, studentdata[0]);
+    }
+    if (role[0].value === "professor") {
+        const [professor] = (yield database_1.pool.query("SELECT departamento_id, tipo_profesor_id FROM profesor WHERE usuario_id = ?", [id]));
+        const [professor_type] = (yield database_1.pool.query("SELECT value FROM tipo_profesor WHERE id = ? ", [
+            professor[0].tipo_profesor_id,
+        ]));
+        const [department] = (yield database_1.pool.query("SELECT nombre FROM departamento WHERE id = ?", [
+            professor[0].departamento_id,
+        ]));
+        userdata = Object.assign(Object.assign({}, professor[0]), { tipo_profesor: professor_type[0].value, departamento: department[0].nombre });
+    }
+    return Object.assign(Object.assign({ role: role[0].value }, res[0]), userdata);
+});
 const UserQuerys = {
     createUserQuery,
     updateUserQuery,
     listUserQuery,
     deleteUserQuery,
-    getUserQuery: exports.getUserQuery
+    getUserQuery: exports.getUserQuery,
+    getUserDataQuery,
 };
 exports.default = UserQuerys;

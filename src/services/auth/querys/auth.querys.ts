@@ -89,3 +89,46 @@ export const createStudentQuery = async (
 
   return student;
 };
+
+export const createProfessorQuery = async (payload: CreateProfessorPayload) => {
+  const { tipo_profesor_id, departamento_id } = payload;
+
+  const { name, surname, password, email, ci, centro_id, rol_id } = <
+    CreateUserPayload
+  >payload;
+
+  const salts = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(password, salts);
+
+  const userdata = {
+    name,
+    surname,
+    password: hash,
+    email,
+    ci,
+    centro_id,
+    rol_id,
+  };
+
+  const [user] = await pool.query("INSERT INTO usuario SET ? ", [userdata]);
+
+  const created_user = await searchUserByEmailQuery(userdata.email);
+  const _created_user: any = created_user;
+  const user_id = _created_user[0].id;
+
+  const professor_data = {
+    usuario_id: user_id,
+    tipo_profesor_id,
+    departamento_id,
+  };
+
+  const [professor] = await pool.query("INSERT INTO estudiante SET ?", [
+    professor_data,
+  ]);
+
+  console.log(professor_data);
+
+  return professor;
+};
+
+

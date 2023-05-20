@@ -31,13 +31,10 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const path_1 = __importDefault(require("path"));
 const cors_1 = __importDefault(require("cors"));
 const routes_1 = __importDefault(require("./routes/routes"));
-const proxyMiddleware_1 = require("./middlewares/proxyMiddleware");
 const testRouter = express_1.default.Router();
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-testRouter.use("/movies", proxyMiddleware_1.testProxy);
-app.use(testRouter);
 app.use("/api", routes_1.default);
 app.use("/", express_1.default.static(path_1.default.join(__dirname, "./public")));
 app.get("/*", (_req, res) => {

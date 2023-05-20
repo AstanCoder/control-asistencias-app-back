@@ -7,7 +7,8 @@ const userRouter = (0, express_1.Router)();
 userRouter
     .post("/user", verifyToken_1.verifyToken, user_controllers_1.createUser)
     .get("/user/list", verifyToken_1.verifyToken, user_controllers_1.ListUser)
-    .get("/user/:id", verifyToken_1.verifyToken, user_controllers_1.getUser)
+    .get("/user/get/:id", verifyToken_1.verifyToken, user_controllers_1.getUser)
     .post("/user/update/:id", verifyToken_1.verifyToken, user_controllers_1.updateUser)
-    .delete("/user/delete/:id", verifyToken_1.verifyToken, user_controllers_1.deleteUser);
+    .delete("/user/delete/:id", verifyToken_1.verifyToken, user_controllers_1.deleteUser)
+    .get("/user/profile/:id", verifyToken_1.verifyToken, user_controllers_1.getUserData);
 exports.default = userRouter;
