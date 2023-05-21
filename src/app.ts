@@ -5,15 +5,14 @@ import cors from "cors";
 import router from "./routes/routes";
 import { testProxy } from "./middlewares/proxyMiddleware";
 
-const testRouter = express.Router()
+const testRouter = express.Router();
 
 dotenv.config();
 
 const app: Express = express();
 
-app.use(express.json())
-
-
+app.use(cors());
+app.use(express.json());
 
 app.use("/api", router);
 app.use("/", express.static(path.join(__dirname, "./public")));
@@ -23,13 +22,6 @@ app.get("/*", (_req, res) => {
 });
 
 app.use(json());
-
-app.use(
-  cors({
-    allowedHeaders: "*",
-    origin: "*",
-  })
-);
 
 const PORT = process.env.PORT || 8080;
 

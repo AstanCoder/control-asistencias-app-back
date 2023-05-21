@@ -34,6 +34,7 @@ const routes_1 = __importDefault(require("./routes/routes"));
 const testRouter = express_1.default.Router();
 dotenv_1.default.config();
 const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use("/api", routes_1.default);
 app.use("/", express_1.default.static(path_1.default.join(__dirname, "./public")));
@@ -41,10 +42,6 @@ app.get("/*", (_req, res) => {
     res.sendFile(path_1.default.join(__dirname, "public", "index.html"));
 });
 app.use((0, express_1.json)());
-app.use((0, cors_1.default)({
-    allowedHeaders: "*",
-    origin: "*",
-}));
 const PORT = process.env.PORT || 8080;
 app.set("port", PORT);
 exports.default = app;
