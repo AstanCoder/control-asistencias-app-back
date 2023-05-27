@@ -13,5 +13,5 @@ userRouter
     .get("/user/profile", verifyToken_1.verifyToken, user_controllers_1.getUserData)
     .get("/user/students", verifyToken_1.verifyToken, user_controllers_1.getStudentsByProfessor)
     .get("/user/roles", verifyToken_1.verifyToken, user_controllers_1.getRoles)
-    .get("/user/professor/types", verifyToken_1.verifyToken, user_controllers_1.getRoles);
+    .get("/user/professor/types", verifyToken_1.verifyToken, user_controllers_1.getProfessorTypes);
 exports.default = userRouter;
