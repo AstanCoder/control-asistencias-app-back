@@ -60,6 +60,14 @@ const getStudentsByProfessorQuery = (id) => __awaiter(void 0, void 0, void 0, fu
     const [students] = (yield database_1.pool.query("SELECT 'estudiante'.'esRepitente', 'usuario'.'name' AS 'nombre', 'usuario'.'ci' AS 'ci' FROM estudiante JOIN 'usuario' ON 'estudiante'.'usuario_id' = 'usuario'.'id' WHERE 'estudiante'.'matricula_id' = ?", [enrollment[0].id]));
     return students;
 });
+const getRolesQuery = () => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield database_1.pool.query("SELECT * FROM rol");
+    return result;
+});
+const getProfessorTypesQuery = () => __awaiter(void 0, void 0, void 0, function* () {
+    const [result] = yield database_1.pool.query("SELECT * FROM tipo_profesor");
+    return result;
+});
 const UserQuerys = {
     createUserQuery,
     updateUserQuery,
@@ -67,6 +75,8 @@ const UserQuerys = {
     deleteUserQuery,
     getUserQuery: exports.getUserQuery,
     getUserDataQuery,
-    getStudentsByProfessorQuery
+    getStudentsByProfessorQuery,
+    getRolesQuery,
+    getProfessorTypesQuery,
 };
 exports.default = UserQuerys;

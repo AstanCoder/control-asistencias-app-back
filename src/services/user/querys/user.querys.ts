@@ -84,7 +84,7 @@ const getUserDataQuery = async (id: number) => {
   };
 };
 
- const getStudentsByProfessorQuery = async (id: number) => {
+const getStudentsByProfessorQuery = async (id: number) => {
   const [enrollment]: RowDataPacket[] = <RowDataPacket[]>(
     await pool.query("CALL get_enrollment_by_professor(?)", [id])
   );
@@ -99,6 +99,16 @@ const getUserDataQuery = async (id: number) => {
   return students;
 };
 
+const getRolesQuery = async () => {
+  const [result] = await pool.query("SELECT * FROM rol");
+  return result;
+};
+
+const getProfessorTypesQuery = async () => {
+  const [result] = await pool.query("SELECT * FROM tipo_profesor");
+  return result;
+};
+
 const UserQuerys = {
   createUserQuery,
   updateUserQuery,
@@ -106,7 +116,9 @@ const UserQuerys = {
   deleteUserQuery,
   getUserQuery,
   getUserDataQuery,
-  getStudentsByProfessorQuery
+  getStudentsByProfessorQuery,
+  getRolesQuery,
+  getProfessorTypesQuery,
 };
 
 export default UserQuerys;

@@ -11,5 +11,7 @@ userRouter
     .post("/user/update/:id", verifyToken_1.verifyToken, user_controllers_1.updateUser)
     .delete("/user/delete/:id", verifyToken_1.verifyToken, user_controllers_1.deleteUser)
     .get("/user/profile", verifyToken_1.verifyToken, user_controllers_1.getUserData)
-    .get("/user/students", verifyToken_1.verifyToken, user_controllers_1.getStudentsByProfessor);
+    .get("/user/students", verifyToken_1.verifyToken, user_controllers_1.getStudentsByProfessor)
+    .get("/user/roles", verifyToken_1.verifyToken, user_controllers_1.getRoles)
+    .get("/user/professor/types", verifyToken_1.verifyToken, user_controllers_1.getRoles);
 exports.default = userRouter;
