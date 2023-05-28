@@ -93,10 +93,9 @@ const createProfessorQuery = (payload) => __awaiter(void 0, void 0, void 0, func
         tipo_profesor_id,
         departamento_id,
     };
-    const [professor] = yield database_1.pool.query("INSERT INTO estudiante SET ?", [
+    const [professor] = yield database_1.pool.query("INSERT INTO profesor SET ?", [
         professor_data,
     ]);
-    console.log(professor_data);
     return professor;
 });
 exports.createProfessorQuery = createProfessorQuery;

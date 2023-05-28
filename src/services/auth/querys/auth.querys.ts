@@ -122,11 +122,11 @@ export const createProfessorQuery = async (payload: CreateProfessorPayload) => {
     departamento_id,
   };
 
-  const [professor] = await pool.query("INSERT INTO estudiante SET ?", [
+  const [professor] = await pool.query("INSERT INTO profesor SET ?", [
     professor_data,
   ]);
 
-  console.log(professor_data);
+  
 
   return professor;
 };
