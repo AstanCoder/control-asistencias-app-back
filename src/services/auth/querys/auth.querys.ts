@@ -47,6 +47,15 @@ export const searchUserByEmailQuery = async (email: string) => {
   return result;
 };
 
+export const searchUserByCIQuery = async (ci: string) => {
+  const [result] = await pool.query(
+    "SELECT id, email, password FROM usuario WHERE ci = ? ",
+    [ci]
+  );
+
+  return result;
+};
+
 export const createStudentQuery = async (
   payload: ProfessorCreateStudentPayload
 ) => {
@@ -71,7 +80,7 @@ export const createStudentQuery = async (
 
   const [user] = await pool.query("INSERT INTO usuario SET ? ", [userdata]);
 
-  const created_user = await searchUserByEmailQuery(userdata.email);
+  const created_user = await searchUserByCIQuery(userdata.ci);
   const _created_user: any = created_user;
   const user_id = _created_user[0].id;
 
@@ -126,9 +135,5 @@ export const createProfessorQuery = async (payload: CreateProfessorPayload) => {
     professor_data,
   ]);
 
-  
-
   return professor;
 };
-
-
